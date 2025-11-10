@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "question": "Örnek Soru 1: Flutter hangi programlama dili ile yazılmıştır?",
+    "options": ["Dart", "Java", "Kotlin", "Swift"],
+    "correctAnswer": 0,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 2,
+    "question": "Örnek Soru 2: Türkiye'nin başkenti neresidir?",
+    "options": ["İstanbul", "Ankara", "İzmir", "Bursa"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 3,
+    "question": "Örnek Soru 3: Hangi gezegen güneş sisteminin en büyük gezegenidir?",
+    "options": ["Satürn", "Jüpiter", "Neptün", "Uranüs"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 4,
+    "question": "Örnek Soru 4: İnsan vücudunda kaç kemik vardır?",
+    "options": ["186", "206", "226", "246"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 5,
+    "question": "Örnek Soru 5: Hangi element periyodik tabloda \"Au\" sembolü ile gösterilir?",
+    "options": ["Gümüş", "Altın", "Alüminyum", "Argon"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 6,
+    "question": "Örnek Soru 6: Dünya'nın en uzun nehri hangisidir?",
+    "options": ["Amazon", "Nil", "Mississippi", "Yangtze"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 7,
+    "question": "Örnek Soru 7: Hangi yıl İstanbul fethedilmiştir?",
+    "options": ["1451", "1453", "1455", "1457"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 8,
+    "question": "Örnek Soru 8: Hangi hayvan dünyanın en hızlı kara hayvanıdır?",
+    "options": ["Aslan", "Çita", "Leopar", "Kaplan"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 9,
+    "question": "Örnek Soru 9: Hangi gezegen \"Kırmızı Gezegen\" olarak bilinir?",
+    "options": ["Venüs", "Mars", "Jüpiter", "Satürn"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 10,
+    "question": "Örnek Soru 10: Hangi ülke Eiffel Kulesi'ne ev sahipliği yapar?",
+    "options": ["İngiltere", "Fransa", "Almanya", "İtalya"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  }
+]
+
