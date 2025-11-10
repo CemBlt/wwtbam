@@ -152,7 +152,7 @@ class _ResultScreenState extends State<ResultScreen> {
                             child: Column(
                               children: [
                                 Text(
-                                  'Doğru Cevap: ${widget.gameState.currentQuestionIndex}/10',
+                                  'Doğru Cevap: ${widget.hasWon ? widget.gameState.questions.length : widget.gameState.currentQuestionIndex}/10',
                                   style: Theme.of(context).textTheme.bodyLarge
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                 ),

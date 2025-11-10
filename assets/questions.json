@@ -22,9 +22,9 @@
     "question": "Dinlediğiniz \"Şarkılar sokaklara Ait\" şarkısının bu verse'ü kime aittir?",
     "options": ["Ezhel", "Selda Bağcan", "Motive", "Uzi"],
     "correctAnswer": 2,
-    "hasAudio": false,
-    "audioPath": null,
-    "imagePath": null
+    "hasAudio": true,
+    "audioPath": "assets/sounds/question3.mp3",
+    "imagePath": "assets/photos/question3.jpg"
   },
   {
     "id": 4,

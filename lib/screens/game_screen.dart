@@ -99,7 +99,7 @@ class _GameScreenState extends State<GameScreen> {
       }
     } else {
       await AudioService().playWrong();
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 14));
       _gameOver();
     }
   }
@@ -316,10 +316,39 @@ class _GameScreenState extends State<GameScreen> {
                         Card(
                           child: Padding(
                             padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              question.question,
-                              style: Theme.of(context).textTheme.headlineMedium,
-                              textAlign: TextAlign.center,
+                            child: Column(
+                              children: [
+                                Text(
+                                  question.question,
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.headlineMedium,
+                                  textAlign: TextAlign.center,
+                                ),
+                                // Sesli soru için tekrar dinleme butonu
+                                if (question.hasAudio &&
+                                    question.audioPath != null) ...[
+                                  const SizedBox(height: 16),
+                                  ElevatedButton.icon(
+                                    onPressed: _isProcessing || _showResult
+                                        ? null
+                                        : () {
+                                            AudioService().playClick();
+                                            _playQuestionAudio();
+                                          },
+                                    icon: const Icon(Icons.replay),
+                                    label: const Text('Şarkıyı Tekrar Dinle'),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: LoveTheme.primaryPink,
+                                      foregroundColor: Colors.white,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ],
                             ),
                           ),
                         ),
