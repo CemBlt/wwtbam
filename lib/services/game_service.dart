@@ -12,12 +12,18 @@ class GameService {
   Future<List<Question>> loadQuestions() async {
     try {
       // Önce assets'ten yüklemeyi dene
+      print('Sorular yükleniyor: assets/questions.json');
       final String jsonString = await rootBundle.loadString('assets/questions.json');
       final List<dynamic> jsonData = json.decode(jsonString);
-      return jsonData.map((json) => Question.fromJson(json)).toList();
-    } catch (e) {
+      final questions = jsonData.map((json) => Question.fromJson(json)).toList();
+      print('${questions.length} soru başarıyla yüklendi!');
+      print('İlk soru: ${questions.first.question}');
+      return questions;
+    } catch (e, stackTrace) {
       // Eğer dosya yoksa, örnek sorular döndür
-      print('Sorular yüklenemedi, örnek sorular kullanılıyor: $e');
+      print('❌ Sorular yüklenemedi, örnek sorular kullanılıyor');
+      print('Hata: $e');
+      print('Stack trace: $stackTrace');
       return _getDefaultQuestions();
     }
   }

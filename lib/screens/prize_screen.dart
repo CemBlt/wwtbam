@@ -4,9 +4,9 @@ import '../utils/theme.dart';
 import '../widgets/confetti_animation.dart';
 import '../services/audio_service.dart';
 
-class PrizeScreen extends StatelessWidget {
+class PrizeScreen extends StatefulWidget {
   final int prizeNumber;
-  final VoidCallback onContinue;
+  final Future<void> Function() onContinue;
 
   const PrizeScreen({
     super.key,
@@ -14,8 +14,13 @@ class PrizeScreen extends StatelessWidget {
     required this.onContinue,
   });
 
+  @override
+  State<PrizeScreen> createState() => _PrizeScreenState();
+}
+
+class _PrizeScreenState extends State<PrizeScreen> {
   String get _prizeMessage {
-    switch (prizeNumber) {
+    switch (widget.prizeNumber) {
       case 1:
         return AppConstants.prizeMessage1;
       case 2:
@@ -28,10 +33,14 @@ class PrizeScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     // Ödül sesini çal
     AudioService().playPrize();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
@@ -119,9 +128,9 @@ class PrizeScreen extends StatelessWidget {
                     
                     // Devam et butonu
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         AudioService().playClick();
-                        onContinue();
+                        await widget.onContinue();
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(

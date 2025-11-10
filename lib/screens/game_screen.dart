@@ -63,25 +63,31 @@ class _GameScreenState extends State<GameScreen> {
     });
 
     if (isCorrect) {
-      AudioService().playCorrect();
+      // Doğru cevap sesini çal
+      await AudioService().playCorrect();
       setState(() {
         _showConfetti = true;
       });
       
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 4));
       
       // Ödül sorusu mu kontrol et
       if (_gameState.isPrizeQuestion) {
         final prizeNumber = _gameState.prizeNumber;
         if (!mounted) return;
         
+        // Ödül ekranına git (ödül sesi orada çalınacak)
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => PrizeScreen(
               prizeNumber: prizeNumber,
-              onContinue: () {
+              onContinue: () async {
+                // Ödül ekranından çıkarken sesi durdur
+                AudioService().stop();
                 Navigator.pop(context);
+                // Kısa bir gecikme ekle
+                await Future.delayed(const Duration(milliseconds: 300));
                 _nextQuestion();
               },
             ),
@@ -91,7 +97,7 @@ class _GameScreenState extends State<GameScreen> {
         _nextQuestion();
       }
     } else {
-      AudioService().playWrong();
+      await AudioService().playWrong();
       await Future.delayed(const Duration(seconds: 2));
       _gameOver();
     }

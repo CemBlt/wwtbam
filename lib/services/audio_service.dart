@@ -15,12 +15,26 @@ class AudioService {
   Future<void> playSound(String path) async {
     if (!_isEnabled) return;
     try {
-      // Path zaten assets/ ile başlıyorsa olduğu gibi kullan
-      final soundPath = path.startsWith('assets/') ? path : 'assets/$path';
+      // Önce çalan sesi durdur
+      await _player.stop();
+      
+      // AssetSource için path'ten "assets/" kısmını kaldır
+      // Örnek: "assets/sounds/correct.mp3" -> "sounds/correct.mp3"
+      String soundPath = path;
+      if (soundPath.startsWith('assets/')) {
+        soundPath = soundPath.substring(7); // "assets/" kısmını kaldır (7 karakter)
+      }
+      
+      // Debug için path'i yazdır
+      print('Ses çalınıyor: $soundPath');
+      
+      // Release mode'u ayarla - ses bitince otomatik serbest bırak
+      await _player.setReleaseMode(ReleaseMode.stop);
+      
       await _player.play(AssetSource(soundPath));
     } catch (e) {
       // Ses dosyası yoksa sessizce geç
-      print('Ses çalınamadı: $path');
+      print('Ses çalınamadı: $path - Hata: $e');
     }
   }
 
@@ -35,13 +49,14 @@ class AudioService {
   Future<void> playQuestionAudio(String? audioPath) async {
     if (!_isEnabled || audioPath == null) return;
     try {
-      // Eğer path assets/ ile başlamıyorsa ekle
-      final path = audioPath.startsWith('assets/') 
-          ? audioPath 
-          : 'assets/$audioPath';
+      // AssetSource için path'ten "assets/" kısmını kaldır
+      String path = audioPath;
+      if (path.startsWith('assets/')) {
+        path = path.substring(7); // "assets/" kısmını kaldır
+      }
       await _player.play(AssetSource(path));
     } catch (e) {
-      print('Soru sesi çalınamadı: $audioPath');
+      print('Soru sesi çalınamadı: $audioPath - Hata: $e');
     }
   }
 
