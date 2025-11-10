@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+
 import '../models/game_state.dart';
-import '../models/question.dart';
 import '../models/joker.dart';
-import '../utils/theme.dart';
 import '../services/audio_service.dart';
+import '../utils/theme.dart';
 import '../widgets/confetti_animation.dart';
 import 'prize_screen.dart';
 import 'result_screen.dart';
@@ -43,7 +44,7 @@ class _GameScreenState extends State<GameScreen> {
 
   void _selectAnswer(int index) {
     if (_isProcessing || _showResult) return;
-    
+
     setState(() {
       _selectedAnswer = index;
     });
@@ -68,14 +69,14 @@ class _GameScreenState extends State<GameScreen> {
       setState(() {
         _showConfetti = true;
       });
-      
+
       await Future.delayed(const Duration(seconds: 4));
-      
+
       // Ödül sorusu mu kontrol et
       if (_gameState.isPrizeQuestion) {
         final prizeNumber = _gameState.prizeNumber;
         if (!mounted) return;
-        
+
         // Ödül ekranına git (ödül sesi orada çalınacak)
         Navigator.push(
           context,
@@ -113,7 +114,7 @@ class _GameScreenState extends State<GameScreen> {
       _disabledOptions = [];
       _isProcessing = false;
     });
-    
+
     if (_gameState.isGameOver) {
       _gameWon();
     } else {
@@ -126,61 +127,57 @@ class _GameScreenState extends State<GameScreen> {
       _gameState.gameOver();
     });
     if (!mounted) return;
-    
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => ResultScreen(
-          gameState: _gameState,
-          hasWon: false,
-        ),
+        builder: (context) =>
+            ResultScreen(gameState: _gameState, hasWon: false),
       ),
     );
   }
 
   void _gameWon() {
     if (!mounted) return;
-    
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => ResultScreen(
-          gameState: _gameState,
-          hasWon: true,
-        ),
+        builder: (context) => ResultScreen(gameState: _gameState, hasWon: true),
       ),
     );
   }
 
   void _useJoker(JokerType type) {
     if (_isProcessing || _showResult) return;
-    
+
     final question = _gameState.currentQuestion!;
     AudioService().playJoker();
-    
+
     setState(() {
       _gameState.useJoker(type);
-      
+
       switch (type) {
         case JokerType.fiftyFifty:
           // İki yanlış şıkkı kaldır
-          final wrongOptions = List.generate(4, (i) => i)
-              .where((i) => i != question.correctAnswer)
-              .toList();
+          final wrongOptions = List.generate(
+            4,
+            (i) => i,
+          ).where((i) => i != question.correctAnswer).toList();
           wrongOptions.shuffle();
           _disabledOptions = wrongOptions.take(2).toList();
           break;
-          
+
         case JokerType.audience:
           // Seyirci jokeri - en çok oy alan şıkkı göster (rastgele, doğruya yakın)
           _showAudienceResult();
           break;
-          
+
         case JokerType.phone:
           // Telefon jokeri - ipucu göster
           _showPhoneHint();
           break;
-          
+
         case JokerType.doubleAnswer:
           // Çift cevap - iki şık işaretlenir
           _showDoubleAnswer();
@@ -214,7 +211,7 @@ class _GameScreenState extends State<GameScreen> {
     final hint = math.Random().nextBool()
         ? 'Doğru cevap kesinlikle doğru!'
         : 'Bence doğru cevap... ${question.options[question.correctAnswer]}';
-    
+
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -233,16 +230,17 @@ class _GameScreenState extends State<GameScreen> {
   void _showDoubleAnswer() {
     // Çift cevap - doğru cevap + bir yanlış
     final question = _gameState.currentQuestion!;
-    final wrongOptions = List.generate(4, (i) => i)
-        .where((i) => i != question.correctAnswer)
-        .toList();
+    final wrongOptions = List.generate(
+      4,
+      (i) => i,
+    ).where((i) => i != question.correctAnswer).toList();
     wrongOptions.shuffle();
-    
+
     setState(() {
       _selectedAnswer = question.correctAnswer;
       // İkinci şık olarak yanlış bir şık göster (görsel olarak)
     });
-    
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Çift cevap aktif! İki şık işaretlendi.'),
@@ -255,9 +253,7 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     final question = _gameState.currentQuestion;
     if (question == null) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
@@ -269,17 +265,16 @@ class _GameScreenState extends State<GameScreen> {
               gradient: LoveTheme.lightPinkGradient,
             ),
           ),
-          
+
           // Konfeti
-          if (_showConfetti)
-            const ConfettiAnimation(isActive: true),
-          
+          if (_showConfetti) const ConfettiAnimation(isActive: true),
+
           SafeArea(
             child: Column(
               children: [
                 // Üst bar - soru numarası ve jokerler
                 _buildTopBar(),
-                
+
                 // Soru alanı
                 Expanded(
                   child: SingleChildScrollView(
@@ -292,7 +287,7 @@ class _GameScreenState extends State<GameScreen> {
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         const SizedBox(height: 24),
-                        
+
                         // Soru fotoğrafı (varsa)
                         if (question.imagePath != null)
                           Container(
@@ -310,13 +305,13 @@ class _GameScreenState extends State<GameScreen> {
                               borderRadius: BorderRadius.circular(12),
                               child: Image.asset(
                                 question.imagePath!,
-                                height: 200,
+                                height: 300,
                                 width: double.infinity,
-                                fit: BoxFit.cover,
+                                fit: BoxFit.fill,
                               ),
                             ),
                           ),
-                        
+
                         // Soru metni
                         Card(
                           child: Padding(
@@ -328,16 +323,18 @@ class _GameScreenState extends State<GameScreen> {
                             ),
                           ),
                         ),
-                        
+
                         const SizedBox(height: 24),
-                        
+
                         // Şıklar
                         ...List.generate(4, (index) {
                           final isDisabled = _disabledOptions.contains(index);
                           final isSelected = _selectedAnswer == index;
-                          final isCorrect = _showResult && index == question.correctAnswer;
-                          final isWrong = _showResult && isSelected && !_isCorrect;
-                          
+                          final isCorrect =
+                              _showResult && index == question.correctAnswer;
+                          final isWrong =
+                              _showResult && isSelected && !_isCorrect;
+
                           Color? backgroundColor;
                           if (isDisabled) {
                             backgroundColor = Colors.grey.shade300;
@@ -348,7 +345,7 @@ class _GameScreenState extends State<GameScreen> {
                           } else if (isSelected) {
                             backgroundColor = LoveTheme.lightPink;
                           }
-                          
+
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 12.0),
                             child: InkWell(
@@ -380,7 +377,9 @@ class _GameScreenState extends State<GameScreen> {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          String.fromCharCode(65 + index), // A, B, C, D
+                                          String.fromCharCode(
+                                            65 + index,
+                                          ), // A, B, C, D
                                           style: TextStyle(
                                             color: isSelected
                                                 ? Colors.white
@@ -395,7 +394,9 @@ class _GameScreenState extends State<GameScreen> {
                                     Expanded(
                                       child: Text(
                                         question.options[index],
-                                        style: Theme.of(context).textTheme.bodyLarge,
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodyLarge,
                                       ),
                                     ),
                                     if (isCorrect)
@@ -416,9 +417,9 @@ class _GameScreenState extends State<GameScreen> {
                             ),
                           );
                         }),
-                        
+
                         const SizedBox(height: 24),
-                        
+
                         // Cevap ver butonu
                         if (!_showResult)
                           ElevatedButton(
@@ -451,10 +452,7 @@ class _GameScreenState extends State<GameScreen> {
       decoration: BoxDecoration(
         gradient: LoveTheme.pinkGradient,
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 5,
-          ),
+          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 5),
         ],
       ),
       child: Column(
@@ -478,9 +476,7 @@ class _GameScreenState extends State<GameScreen> {
                         : Colors.white.withOpacity(0.9),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: joker.isUsed
-                          ? Colors.grey
-                          : LoveTheme.primaryPink,
+                      color: joker.isUsed ? Colors.grey : LoveTheme.primaryPink,
                       width: 2,
                     ),
                   ),
@@ -529,4 +525,3 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 }
-
