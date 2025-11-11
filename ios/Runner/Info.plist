@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Uygulama sorularınız için fotoğraf seçmenize izin verir.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Uygulama sorularınız için fotoğraf kaydetmenize izin verir.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Uygulama sorularınız için fotoğraf çekmenize izin verir.</string>
 </dict>
 </plist>
