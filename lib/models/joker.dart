@@ -38,10 +38,9 @@ class Joker {
       ),
       Joker(
         type: JokerType.doubleAnswer,
-        name: 'Çift Cevap',
-        description: 'İki şık işaretlenir, biri doğru',
+        name: 'Tek Cevap',
+        description: 'Tek şık işaretlendi',
       ),
     ];
   }
 }
-

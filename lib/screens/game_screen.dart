@@ -243,7 +243,7 @@ class _GameScreenState extends State<GameScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Çift cevap aktif! İki şık işaretlendi.'),
+        content: Text('Tek şık işaretlendi.'),
         duration: Duration(seconds: 2),
       ),
     );
