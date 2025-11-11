@@ -305,9 +305,8 @@ class _GameScreenState extends State<GameScreen> {
                               borderRadius: BorderRadius.circular(12),
                               child: Image.asset(
                                 question.imagePath!,
-                                height: 300,
                                 width: double.infinity,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
