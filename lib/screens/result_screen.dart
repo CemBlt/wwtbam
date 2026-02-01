@@ -7,6 +7,7 @@ import '../utils/theme.dart';
 import '../widgets/confetti_animation.dart';
 import '../widgets/heart_animation.dart';
 import 'home_screen.dart';
+import 'mystery_box_screen.dart';
 
 class ResultScreen extends StatefulWidget {
   final GameState gameState;
@@ -170,30 +171,68 @@ class _ResultScreenState extends State<ResultScreen> {
 
                     const SizedBox(height: 48),
 
-                    // Ana menüye dön butonu
-                    ElevatedButton(
-                      onPressed: () {
-                        AudioService().playClick();
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
+                    // Butonlar - Kazanma durumuna göre koşullu
+                    if (widget.hasWon)
+                      // KAZANMA DURUMU: Ödül ekranına git
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            AudioService().playClick();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const MysteryBoxScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 20,
+                            ),
+                            textStyle: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            backgroundColor: LoveTheme.gold,
+                            foregroundColor: LoveTheme.darkPink,
                           ),
-                          (route) => false,
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 48,
-                          vertical: 20,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: const Text('Tebrikler! Ödülünü Al 🎁'),
+                          ),
                         ),
-                        textStyle: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                      )
+                    else
+                      // KAYBETME/ÇEKİLME DURUMU: Ana menüye dön
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            AudioService().playClick();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomeScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 20,
+                            ),
+                            textStyle: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          child: const Text('Ana Menüye Dön 💖'),
                         ),
                       ),
-                      child: const Text('Ana Menüye Dön 💖'),
-                    ),
                   ],
                 ),
               ),

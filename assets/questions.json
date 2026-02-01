@@ -1,93 +1,93 @@
 [
   {
     "id": 1,
-    "question": "Cem'in gerçek adı nedir?",
-    "options": ["Cem", "Can", "Berk", "Cemal"],
-    "correctAnswer": 1,
+    "question": "Cem'in 2025 yılı spotify 1.'si kimdir?",
+    "options": ["Baneva", "Şam", "Motive", "Sagopa"],
+    "correctAnswer": 3,
     "hasAudio": false,
     "audioPath": null,
-    "imagePath": "assets/photos/question1.jpg"
+    "imagePath": null
   },
   {
     "id": 2,
-    "question": "Aşağıdaki ünlülerden hangisi Elifsuya benzerliğiyle tanınır?",
-    "options": ["Akasya Durağı: Safiye", "Selena: Kıvılcım", "En İyi Arkadaşım: Mert", "Hayat Bilgisi: Mennan"],
+    "question": "Cem'in lise sondaki sıra arkadaşı kimdir?",
+    "options": ["Hüseyin", "Yakub", "Ali", "Mert"],
     "correctAnswer": 0,
     "hasAudio": false,
     "audioPath": null,
-    "imagePath": "assets/photos/question2.jpg"
+    "imagePath": null
   },
   {
     "id": 3,
-    "question": "Dinlediğiniz \"Şarkılar sokaklara Ait\" şarkısının bu verse'ü kime aittir?",
-    "options": ["Ezhel", "Selda Bağcan", "Motive", "Uzi"],
-    "correctAnswer": 2,
-    "hasAudio": true,
-    "audioPath": "assets/sounds/question3.mp3",
-    "imagePath": "assets/photos/question3.jpg"
+    "question": "Cem'in bitirme projesi olarak yapıtğı proje aşağıdakilerden hangisidir?",
+    "options": ["Kurye App", "To Do List App", "Timer App", "Kargo Taxi App"],
+    "correctAnswer": 0,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
   },
   {
     "id": 4,
-    "question": "Cem, aşağıda bulunan ünlülerden hangisine DM atmamıştır",
-    "options": ["İcardi", "Arda Turan", "Fatih Terim", "Barış Alper Yılmaz"],
-    "correctAnswer": 3,
-    "hasAudio": false,
-    "audioPath": null,
-    "imagePath": "assets/photos/question4.jpg"
-  },
-  {
-    "id": 5,
-    "question": "Harry Potter'ın 3.filminin adı aşağıdakilerden hangisidir?",
-    "options": ["Aztapan Tutsağı", "Kıbrıs", "Irak", "Azkaban Tutsağı"],
-    "correctAnswer": 0,
-    "hasAudio": false,
-    "audioPath": null,
-    "imagePath": "assets/photos/question5.jpg"
-  },
-  {
-    "id": 6,
-    "question": "Cem'in eniştesinin,maslak oto sanayideki dükkanının adı nedir?",
-    "options": ["Elmas Otomotiv", "Servet Otomotiv", "Özay Otomotiv", "Bulut Otomotiv"],
-    "correctAnswer": 2,
-    "hasAudio": false,
-    "audioPath": null,
-    "imagePath": "assets/photos/question6.jpg"
-  },
-  {
-    "id": 7,
-    "question": "Aşağıda yer alan kramponlardan hangisi Cem'e aittir?",
-    "options": ["Siyah", "Mor", "Beyaz", "Sarı"],
-    "correctAnswer": 0,
-    "hasAudio": false,
-    "audioPath": null,
-    "imagePath": "assets/photos/question7.jpg"
-  },
-  {
-    "id": 8,
-    "question": "Aşağıdakilerden hangisi Cem'in okul arkadaşı değildir?",
-    "options": ["Salik", "Görkem", "Burak", "Erdinç"],
-    "correctAnswer": 3,
-    "hasAudio": false,
-    "audioPath": null,
-    "imagePath": "assets/photos/question8.jpg"
-  },
-  {
-    "id": 9,
-    "question": "400c Pizza'dan çıktıktan sonra hangi ünlü yanımıza gelip, Cem ile fotoğraf çektirmek istemiştir?",
-    "options": ["Okan Bayülgen", "Emre Özcan", "HTalks", "Mehmet Demirkol"],
+    "question": "Aşağıdakilerden hangisi Ülker Bulut'un kızlık soyadıdır?",
+    "options": ["Yılmaz", "Özcan", "Aldoğan", "Aslan"],
     "correctAnswer": 1,
     "hasAudio": false,
     "audioPath": null,
-    "imagePath": "assets/photos/question9.jpg"
+    "imagePath": null
   },
   {
-    "id": 10,
-    "question": "Cem'in bağdat caddesinde götürmek istediği ancak gidildiğinde kapandığını gördüğü lazanyacının, yemek sonrası hediye olarak ne dağıttıklarını söylemiştir?",
-    "options": ["Magnet", "Şans Kurabiyesi", "Anahtarlık", "Kitap"],
+    "id": 5,
+    "question": "Aşağıdakilerden hangisi Cem'in lise zamanında en çok tükettiği çikolatadır?",
+    "options": ["Laviva", "Gofrik", "Karam", "Canga"],
+    "correctAnswer": 2,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 6,
+    "question": "Aşağıdakilerden hangisi Cem'in halı sahalarda oynadığı mevkidir?",
+    "options": ["Forvet", "Kanat", "Ofansif Orta Saha", "Defansif Orta Saha"],
     "correctAnswer": 3,
     "hasAudio": false,
     "audioPath": null,
-    "imagePath": "assets/photos/question10.jpg"
+    "imagePath": null
+  },
+  {
+    "id": 7,
+    "question": "Cem'in okul hayatında en gururlandığı an hangisidir?",
+    "options": ["Basket Takımına Seçilmesi", "Matematikten Yüksek Alması", "Veli Toplantısında Övülmesi", "Okul Turnuvasını Kazanması"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 8,
+    "question": "Cem'in terliğinin üzerindeki simge nedir?",
+    "options": ["Kurt", "Köpek", "Ayı", "Çapa"],
+    "correctAnswer": 3,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 9,
+    "question": "Cem Eyüp Anadoluya geçmeden önce hangi okuldan nakil almıştır?",
+    "options": ["Mevlana Anadolu", "Kağıthane Anadolu", "Gop Anadolu", "Rami Anadolu"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
+  },
+  {
+    "id": 10,
+    "question": "Cem'in sabahları youtubedan izlediği kanalın adı nedir?",
+    "options": ["Emre Özcan", "Koray Gök", "Eski Açık", "HTalks"],
+    "correctAnswer": 1,
+    "hasAudio": false,
+    "audioPath": null,
+    "imagePath": null
   }
 ]
 

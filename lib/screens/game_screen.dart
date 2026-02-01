@@ -208,9 +208,17 @@ class _GameScreenState extends State<GameScreen> {
   void _showPhoneHint() {
     // Telefon ipucu göster
     final question = _gameState.currentQuestion!;
-    final hint = math.Random().nextBool()
-        ? 'Doğru cevap kesinlikle doğru!'
-        : 'Bence doğru cevap... ${question.options[question.correctAnswer]}';
+    final correctAnswer = question.options[question.correctAnswer];
+    
+    // Farklı mesaj varyasyonları - hepsi cevabı içeriyor
+    final hints = [
+      'Bence doğru cevap... $correctAnswer',
+      'Kesinlikle $correctAnswer olmalı!',
+      'Doğru cevap $correctAnswer bence.',
+      '$correctAnswer şıkkı doğru gibi görünüyor.',
+    ];
+    
+    final hint = hints[math.Random().nextInt(hints.length)];
 
     showDialog(
       context: context,

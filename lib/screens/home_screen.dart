@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     // Alt başlık
                     Text(
-                      "Kim 14 Kasım'da Doğmak İster",
+                      "Bir Bubu'nun Yaşamına Hoşgeldiniz",
                       style: Theme.of(context).textTheme.headlineMedium,
                       textAlign: TextAlign.center,
                     ),
