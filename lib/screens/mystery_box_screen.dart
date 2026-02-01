@@ -26,8 +26,13 @@ class _MysteryBoxScreenState extends State<MysteryBoxScreen>
     'Tatlı',
   ];
 
-  int? _selectedBoxIndex; // Seçilen kutu indeksi
-  bool _isBoxOpened = false; // Kutu açıldı mı?
+  // 1. turdan gelen, zaten kazanılmış kutu indeksi (sadece görsel için)
+  int? _previousWonIndex;
+  
+  // Bu turda (Round 2) kullanıcının yeni seçeceği kutu
+  int? _currentSelectedIndex;
+  
+  bool _isBoxOpened = false; // Bu turda kutu açıldı mı?
   bool _showContinueButton = false; // Devam et butonu gösterilsin mi?
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
@@ -46,10 +51,12 @@ class _MysteryBoxScreenState extends State<MysteryBoxScreen>
       CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
     );
 
-    // Eğer 1. turda bir kutu açıldıysa, onu göster
+    // Eğer 1. turda bir kutu açıldıysa, onu previousWonIndex olarak kaydet
+    // Ama currentSelectedIndex null kalmalı (yeni seçim yapılabilmeli)
     if (widget.openedBoxIndex != null) {
-      _selectedBoxIndex = widget.openedBoxIndex;
-      _isBoxOpened = true;
+      _previousWonIndex = widget.openedBoxIndex;
+      // _currentSelectedIndex başlangıçta null kalır
+      // _isBoxOpened false kalır (yeni seçim yapılabilmeli)
     }
   }
 
@@ -60,10 +67,14 @@ class _MysteryBoxScreenState extends State<MysteryBoxScreen>
   }
 
   void _openBox(int index) {
-    if (_isBoxOpened) return; // Kutu zaten açıldıysa işlem yapma
+    // Eğer bu turda zaten bir kutu seçildiyse, yeni seçim yapma
+    if (_isBoxOpened) return;
+    
+    // Eğer önceki turdan açılmış bir kutuya tıklanırsa, hiçbir şey yapma
+    if (index == _previousWonIndex) return;
 
     setState(() {
-      _selectedBoxIndex = index;
+      _currentSelectedIndex = index;
       _isBoxOpened = true;
     });
 
@@ -86,7 +97,7 @@ class _MysteryBoxScreenState extends State<MysteryBoxScreen>
       context,
       MaterialPageRoute(
         builder: (context) =>
-            WordleGameScreen(openedBoxIndex: _selectedBoxIndex),
+            WordleGameScreen(openedBoxIndex: _currentSelectedIndex),
       ),
     );
   }
@@ -150,28 +161,36 @@ class _MysteryBoxScreenState extends State<MysteryBoxScreen>
                   ),
                   itemCount: 6,
                   itemBuilder: (context, index) {
-                    final isOpened = _isBoxOpened && _selectedBoxIndex == index;
-                    final isPreviouslyOpened =
-                        isSecondTurn && widget.openedBoxIndex == index;
-                    final isDisabled =
-                        _isBoxOpened && _selectedBoxIndex != index;
+                    // Bu turda seçilen kutu mu?
+                    final isCurrentSelected = _currentSelectedIndex == index;
+                    
+                    // Önceki turdan açılmış kutu mu?
+                    final isPreviouslyOpened = _previousWonIndex == index;
+                    
+                    // Bu turda başka bir kutu seçildi mi? (bu kutu disabled olmalı)
+                    final isDisabled = _isBoxOpened && _currentSelectedIndex != null && _currentSelectedIndex != index;
 
                     return GestureDetector(
                       onTap: () {
-                        if (!isOpened && !isPreviouslyOpened && !isDisabled) {
-                          _openBox(index);
-                        }
+                        // Önceki turdan açılmış kutuya tıklanırsa hiçbir şey yapma
+                        if (isPreviouslyOpened) return;
+                        
+                        // Bu turda zaten bir kutu seçildiyse, yeni seçim yapma
+                        if (_isBoxOpened) return;
+                        
+                        // Yeni seçim yap
+                        _openBox(index);
                       },
                       child: AnimatedBuilder(
                         animation: _scaleAnimation,
                         builder: (context, child) {
                           return Transform.scale(
-                            scale: (isOpened && _selectedBoxIndex == index)
+                            scale: isCurrentSelected
                                 ? _scaleAnimation.value
                                 : 1.0,
                             child: Container(
                               decoration: BoxDecoration(
-                                color: isOpened || isPreviouslyOpened
+                                color: isCurrentSelected || isPreviouslyOpened
                                     ? LoveTheme.gold
                                     : Colors.white,
                                 borderRadius: BorderRadius.circular(20),
@@ -183,49 +202,53 @@ class _MysteryBoxScreenState extends State<MysteryBoxScreen>
                                   ),
                                 ],
                                 border: Border.all(
-                                  color: isOpened || isPreviouslyOpened
+                                  color: isCurrentSelected || isPreviouslyOpened
                                       ? LoveTheme.darkPink
                                       : LoveTheme.primaryPink,
                                   width: 3,
                                 ),
                               ),
-                              child: Center(
-                                child: isOpened || isPreviouslyOpened
-                                    ? Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                            Icons.card_giftcard,
-                                            size: 40,
-                                            color: LoveTheme.darkPink,
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 8.0,
+                              child: Opacity(
+                                // Önceki turdan açılmış kutu biraz soluk görünsün
+                                opacity: isPreviouslyOpened && !isCurrentSelected ? 0.7 : 1.0,
+                                child: Center(
+                                  child: isCurrentSelected || isPreviouslyOpened
+                                      ? Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            const Icon(
+                                              Icons.card_giftcard,
+                                              size: 40,
+                                              color: LoveTheme.darkPink,
                                             ),
-                                            child: Text(
-                                              _oduller[index],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.copyWith(
-                                                    color: LoveTheme.darkPink,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                              textAlign: TextAlign.center,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                                            const SizedBox(height: 8),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0,
+                                              ),
+                                              child: Text(
+                                                _oduller[index],
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium
+                                                    ?.copyWith(
+                                                      color: LoveTheme.darkPink,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                textAlign: TextAlign.center,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      )
-                                    : const Icon(
-                                        Icons.inventory_2,
-                                        size: 50,
-                                        color: LoveTheme.primaryPink,
-                                      ),
+                                          ],
+                                        )
+                                      : const Icon(
+                                          Icons.inventory_2,
+                                          size: 50,
+                                          color: LoveTheme.primaryPink,
+                                        ),
+                                ),
                               ),
                             ),
                           );
